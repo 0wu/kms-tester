@@ -7,22 +7,21 @@
 	#elementToShare {
 	    background: rgb(233, 233, 233);
 	    font-size: 2em;
-	    height: 100%;
+	    height: 200px;
 	    left: 0;
-	    padding: 0 1em;
 	    position: absolute;
 	    top: 0;
-	    width: 100%; 
+	    width: 200px; 
 	}  
 	</style>
 
+    <div id="elementToShare">
+	<h2 id="counter" style="text-align:center"/>
+    </div>
 
-    <div id="elementToShare"></div>
+    <video id="replay" style="position: absolute; left: 300px; top:0; width:200px; height:200px" />
+
   <body>
-	<div style="position: fixed;left: 20%;right: 20%;text-align: center;">
-	    <button id="start" contenteditable="false">Start Canvas Recording</button>
-	    <button id="stop" contenteditable="false">Stop and Play</button>
-	</div>
     <script>
 	window.addEventListener("load", function()
 	{
@@ -32,20 +31,30 @@
 		    type: 'canvas'
 		});
 
-		document.getElementById('start').addEventListener("click",  function() {
-		    recorder.startRecording();
-		    console.log("start Recording");
-		});
+		recorder.startRecording();
 
-		document.getElementById('stop').addEventListener("click", function() {
-		    recorder.stopRecording(function(url) {
-			console.log("video:"+url);
-		    });
-		    console.log("stop recording");
-		});
+		//counter 
+		var count=0;
+		var fps=30;
+		var startMs = new Date().getTime();
+		var counterIncreaser=setInterval(function(){ 
+			var ms=new Date().getTime()-startMs;
+			document.getElementById('counter').innerHTML=count+"<br>"+ms; 
+			count++;},
+		1.0/fps);
 
-		setTimeout(function() { document.getElementById('start').click();}, 1000);
-		setTimeout(function() { document.getElementById('stop').click();}, 2000);
+		//1second
+		setTimeout(function(){
+			clearInterval(counterIncreaser);
+			recorder.stopRecording(function(url) {
+				console.log("video:"+url);
+				var replay = document.getElementById("replay");
+				replay.src = url;
+				replay.controls = true;
+				replay.play();
+			});
+		},1000);
+		
 	});
     </script>
 
