@@ -42,7 +42,7 @@ if (args.ice_servers) {
 function setIceCandidateCallbacks(webRtcPeer, webRtcEp, onerror)
 {
   webRtcPeer.on('icecandidate', function(candidate) {
-    console.log("Local candidate:",candidate);
+    webConsole.log("Local candidate:",candidate);
 
     candidate = kurentoClient.register.complexTypes.IceCandidate(candidate);
 
@@ -52,7 +52,7 @@ function setIceCandidateCallbacks(webRtcPeer, webRtcEp, onerror)
   webRtcEp.on('OnIceCandidate', function(event) {
     var candidate = event.candidate;
 
-    console.log("Remote candidate:",candidate);
+    webConsole.log("Remote candidate:",candidate);
 
     webRtcPeer.addIceCandidate(candidate, onerror);
   });
@@ -61,7 +61,7 @@ function setIceCandidateCallbacks(webRtcPeer, webRtcEp, onerror)
 
 window.addEventListener('load', function()
 {
-  console = new Console();
+  webConsole = new Console();
 
   var webRtcPeer;
   var pipeline;
@@ -105,6 +105,7 @@ window.addEventListener('load', function()
           pipeline.create("WebRtcEndpoint", function(error, webRtc){
             if(error) return onError(error);
 
+/*
             pipeline.create('RecorderEndpoint', {uri: "file:///tmp/test1.webm"},
 				function(error, recorder)
 				{
@@ -119,6 +120,7 @@ window.addEventListener('load', function()
 							if(error) onError(error);
 					});
 				});
+*/
 			
 
 
@@ -134,7 +136,7 @@ window.addEventListener('load', function()
             webRtc.connect(webRtc, function(error){
               if(error) return onError(error);
 
-              console.log("Loopback established");
+              webConsole.log("Loopback established");
             });
           });
         });
@@ -161,7 +163,7 @@ window.addEventListener('load', function()
   function onError(error) {
     if(error)
     {
-      console.error(error);
+      webConsole.error(error);
       stop();
     }
   }

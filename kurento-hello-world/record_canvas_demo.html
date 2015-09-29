@@ -1,0 +1,50 @@
+<title>RecordRTC Canvas/HTML Recorder</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+
+<style>
+#elementToShare {
+    background: rgb(233, 233, 233);
+    font-size: 2em;
+    height: 100%;
+    left: 0;
+    padding: 0 1em;
+    position: absolute;
+    top: 0;
+    width: 100%; 
+}  
+</style>
+
+<div id="elementToShare" contenteditable style="margin-top: 3px;">
+	<h2> some text </h2>
+</div>
+
+<div style="position: fixed;left: 20%;right: 20%;text-align: center;">
+    <button id="start" contenteditable="false">Start Canvas Recording</button>
+    <button id="stop" contenteditable="false">Stop and Play</button>
+</div>
+
+<script src="js/screenshot.js"></script>
+<script src="js/RecordRTC.js"></script>
+
+<script>
+var elementToShare = document.getElementById('elementToShare');
+var recorder = RecordRTC(elementToShare, {
+    recorderType: CanvasRecorder
+});
+
+document.getElementById('start').onclick = function() {
+    recorder.startRecording();
+};
+document.getElementById('stop').onclick = function() {
+    recorder.stopRecording(function(url) {
+        var video = document.createElement('video');
+        video.src = url;
+        video.setAttribute('style', 'height: 100%; position: absolute; top:0;');
+        document.body.appendChild(video);
+        video.controls = true;
+        video.play();
+    });
+};
+
+</script>
