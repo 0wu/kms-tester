@@ -20,11 +20,11 @@
     "tests"
   ],
   "dependencies": {
-    "adapter.js": "*",
-    "bootstrap": "~3.3.0",
-    "ekko-lightbox": "~3.3.0",
-    "demo-console": "master",
-    "kurento-client": "master",
-    "kurento-utils": "master"
+    "adapter.js": "0.1.6",
+    "bootstrap": "3.3.5",
+    "ekko-lightbox": "3.3.0",
+    "demo-console": "1ff10665e1",
+    "kurento-client": "b90ab314ba",
+    "kurento-utils": "f7c889e10b"
   }
 }
