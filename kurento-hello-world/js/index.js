@@ -27,6 +27,7 @@ var args = getopts(location.search,
   default:
   {
     ws_uri: 'ws://' + location.hostname + ':8888/kurento',
+    //ws_uri: 'wss://' + location.hostname + ':8443/kurento',
     ice_servers: undefined
   }
 });
@@ -58,6 +59,7 @@ function setIceCandidateCallbacks(webRtcPeer, webRtcEp, onerror)
   });
 }
 
+var helloworld={};
 
 window.addEventListener('load', function()
 {
@@ -72,7 +74,7 @@ window.addEventListener('load', function()
   var startButton = document.getElementById("start");
   var stopButton = document.getElementById("stop");
 
-  startButton.addEventListener("click", function()
+  helloworld.start=function ()
   {
     showSpinner(videoInput, videoOutput);
 
@@ -142,11 +144,10 @@ window.addEventListener('load', function()
         });
       });
     }
-  });
-  stopButton.addEventListener("click", stop);
+  };
 
 
-  function stop() {
+    helloworld.stop=function () {
     if (webRtcPeer) {
       webRtcPeer.dispose();
       webRtcPeer = null;
