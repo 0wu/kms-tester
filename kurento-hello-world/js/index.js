@@ -40,22 +40,50 @@ if (args.ice_servers) {
 }
 
 
+var disableTrickleICE = true;
 function setIceCandidateCallbacks(webRtcPeer, webRtcEp, onerror)
 {
+
+  var localIceCandidates = [];
+  var remoteIceCandidates = [];
   webRtcPeer.on('icecandidate', function(candidate) {
     webConsole.log("Local candidate:",candidate);
-
-    candidate = kurentoClient.register.complexTypes.IceCandidate(candidate);
-
-    webRtcEp.addIceCandidate(candidate, onerror)
+    if(disableTrickleICE)
+    {
+        localIceCandidates.push(candidate);
+    }
+    else
+    {
+        candidate = kurentoClient.register.complexTypes.IceCandidate(candidate);
+        webRtcEp.addIceCandidate(candidate, onerror)
+    }
   });
 
   webRtcEp.on('OnIceCandidate', function(event) {
     var candidate = event.candidate;
-
     webConsole.log("Remote candidate:",candidate);
+    if(disableTrickleICE)
+        remoteIceCandidates.push(candidate);
+    else
+        webRtcPeer.addIceCandidate(candidate, onerror);
+  });
 
-    webRtcPeer.addIceCandidate(candidate, onerror);
+  webRtcEp.on('OnIceGatheringDone', function(event) {
+      webConsole.log("ICE Gathering done");
+      var i;
+      for(i=0;i<localIceCandidates.length;i++)
+      {
+        var candidate = localIceCandidates[i];
+        webConsole.log("add " + candidate);
+        candidate = kurentoClient.register.complexTypes.IceCandidate(candidate);
+        webRtcEp.addIceCandidate(candidate, onerror);
+      }
+      for(i=0;i<remoteIceCandidates.length;i++)
+      {
+        var candidate = remoteIceCandidates[i];
+        webConsole.log("add " + candidate);
+        webRtcPeer.addIceCandidate(candidate, onerror);
+      }
   });
 }
 

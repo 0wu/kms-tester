@@ -24,7 +24,7 @@
     "bootstrap": "3.3.5",
     "ekko-lightbox": "3.3.0",
     "demo-console": "1ff10665e1",
-    "kurento-client": "b90ab314ba",
-    "kurento-utils": "f7c889e10b"
+    "kurento-client": "6.1.0",
+    "kurento-utils": "6.1.0"
   }
 }
