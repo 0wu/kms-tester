@@ -99,17 +99,17 @@ window.addEventListener('load', function()
   var videoInput = document.getElementById('videoInput');
   var videoOutput = document.getElementById('videoOutput');
 
-  var startButton = document.getElementById("start");
-  var stopButton = document.getElementById("stop");
-
-  helloworld.start=function ()
+  helloworld.start=function (options)
   {
     showSpinner(videoInput, videoOutput);
 
-    var options = {
+
+    var default_options = {
       localVideo: videoInput,
-      remoteVideo: videoOutput
+      remoteVideo: videoOutput,
     };
+
+    options = options || default_options;
 
     webRtcPeer = kurentoUtils.WebRtcPeer.WebRtcPeerSendrecv(options, function(error)
     {
