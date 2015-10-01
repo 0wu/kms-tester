@@ -1,6 +1,6 @@
 
     var video = document.getElementById("videoInput");
-      var assetURL = 'frag_bunny.mp4';
+      var assetURL = 'media/frag_bunny.mp4';
       // Need to be specific for Blink regarding codecs
       // ./mp4info frag_bunny.mp4 | grep Codec
       var mimeCodec = 'video/mp4; codecs="avc1.42E01E, mp4a.40.2"';
