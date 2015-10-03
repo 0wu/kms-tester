@@ -1,2 +1,2 @@
 
-docker build  --rm -t kurento-tester .
+docker build  --rm -t kurento-tester ./kms-server-vanilla/
