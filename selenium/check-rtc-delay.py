@@ -42,18 +42,4 @@ finally:
     driver.quit()
 
 import numpy;
-timing_arr = numpy.array(timing);
-sender = timing_arr[:,0];
-receiver= timing_arr[:,1];
-delay = timing_arr[:,2];
-print(timing_arr)
-
-import matplotlib
-matplotlib.use('Agg')
-
-import pylab as p
-p.plot(sender, receiver)
-p.xlabel('sender')
-p.ylabel('receiver')
-p.title('webrtc-timing')
-p.savefig("timing.png")
+numpy.array(timing).dump('timing.npz');
