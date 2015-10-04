@@ -16,6 +16,6 @@ turnURL=${TURN_URL}
 userpw=`echo ${TURN_URL}|sed -e 's/\(.*\)@.*/\1/'`
 public_ip=`echo ${TURN_URL}|sed -e 's/.*@\([0-9.]*\).*/\1/'`
 echo userpw=$userpw public_ip=$public_ip
-turnserver -o -u $userpw -X $public_ip
+turnserver -o -a v -r 'kms-test' -u $userpw -X $public_ip
 fi
 
