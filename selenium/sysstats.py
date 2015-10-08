@@ -7,7 +7,7 @@ def get_kurento_cpu_percent(interval=1):
         for i in psutil.pids():
             try:
                 name2pid[psutil.Process(i).name()]=i
-            except e:
+            except:
                 pass
         pid_kms=name2pid['kurento-media-server']
         proc_kms=psutil.Process(pid_kms)
