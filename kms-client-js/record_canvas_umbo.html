@@ -42,8 +42,9 @@
 		var counterIncreaser=setInterval(function(){ 
 			var ms=new Date().getTime()-startMs;
 			document.getElementById('counter').innerHTML=count+"<br>"+ms; 
-			count++;},
-		1.0/fps);
+			count++;
+			drawCode(elementToShare, count);
+			}, 1.0/fps);
 
 		//1second
 		setTimeout(function(){
