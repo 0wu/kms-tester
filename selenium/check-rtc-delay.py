@@ -21,7 +21,7 @@ firefoxProfile.update_preferences()
 driver = webdriver.Remote(command_executor='http://127.0.0.1:4444/wd/hub', desired_capabilities=DesiredCapabilities.FIREFOX, browser_profile=firefoxProfile)
 
 # go to the google home page
-driver.get("http://g.umbocv.com:8001/kms-client-js/rtc_source_from_file.html")
+driver.get("http://g.umbocv.com:8000/kms-client-js/rtc_source_from_file.html")
 
 
 timing = [];

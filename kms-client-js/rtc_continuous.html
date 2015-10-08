@@ -34,7 +34,7 @@
 
         <div class="col-md-3">
           <h3>Source Video</h3>
-          <video id="videoInput" src="media/30sec.webm" width="240px" height="240px" poster="img/webrtc.png"></video>
+          <video id="videoInput" src="media/30sec_ffmpeg.webm" width="240px" height="240px" poster="img/webrtc.png"></video>
         </div>
 
         <div class="col-md-3">
@@ -87,7 +87,7 @@
         var msec = new Date().getTime();
         if(startTime<0)
             startTime = msec;
-        senderTime = msec-startTime;
+        senderTime = (msec-startTime) % (2 << (codeLength-1));
 
         var i;
 
@@ -166,9 +166,14 @@
 			helloworld.start(options);
 		}, 1000);
 
-        videoInput.addEventListener('ended', function(){
-			    helloworld.stop();
-        },false);
+        if (typeof videoInput.loop == 'boolean') { // loop supported
+            videoInput.loop = true;
+        } else { // loop property not supported
+            videoInput.addEventListener('ended', function () {
+            this.currentTime = 0;
+            this.play();
+            }, false);
+        }
 
         updateMessage(); //async loop
 	});
